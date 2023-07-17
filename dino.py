@@ -1,6 +1,16 @@
 import pygame
 
-
+class Obstacle:
+    def __init__(self, width, height, speed, name):
+        if name == "small cactus":
+            self.rect = pygame.Rect(10, 20)
+        if name == "big cactus":
+            self.rect = pygame.Rect(20, 30)
+        if name == "double cactus":
+            self.rect = pygame.Rect(40, 20)
+        if name == "tripple cactus":
+            self.rect = pygame.Rect(50, 20)
+        self.speed = speed
 
 
 
