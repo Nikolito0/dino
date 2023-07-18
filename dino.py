@@ -4,6 +4,55 @@ from random import randint
 
 Cloud_img = pygame.image.load("./img/cloud.png")
 
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 256
+FPS = 60
+WHITE = (255, 255, 255)
+class Cactus(pygame.sprite.Sprite):
+    def __init__(self, level):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((30, 60))
+        self.image.fill(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.x = SCREEN_WIDTH
+        self.rect.y = SCREEN_HEIGHT - self.rect.height
+        self.speed = 5 + level * 2
+    def update(self):
+        self.rect.x -= self.speed
+        if self.rect.right < 0:
+            self.kill()   #gets rid of the obstacles at the edge of the border
+pygame.init()
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+clock = pygame.time.Clock()
+all_sprites = pygame.sprite.Group()
+cacti = pygame.sprite.Group()
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    screen.fill((0, 0, 0))
+    level = 1
+    if level == 1:
+        if random.randrange(0, 100) < 2:
+            new_cactus = Cactus(level)
+            all_sprites.add(new_cactus)
+            cacti.add(new_cactus)
+    elif level == 2:
+        if random.randrange(0, 100) < 4:
+            new_cactus = Cactus(level)
+            all_sprites.add(new_cactus)
+            cacti.add(new_cactus)
+    elif level == 3:
+        if random.randrange(0, 100) < 6:
+            new_cactus = Cactus(level)
+            all_sprites.add(new_cactus)
+            cacti.add(new_cactus)
+    all_sprites.update()
+    all_sprites.draw(screen)
+    pygame.display.flip()
+    clock.tick(FPS)
+pygame.quit()
 
 class Menu:
     def __init__(self) -> None:
